@@ -1,3 +1,4 @@
-flask
-pytelegrambotapi
+Flask
+python-telegram-bot
+pyTelegramBotAPI 
 google-generativeai
