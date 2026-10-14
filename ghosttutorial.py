@@ -1,8 +1,7 @@
-
 import os
 import html
 import telebot
-import google.generativeai as genai
+from google import genai
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
 # =========================
@@ -18,8 +17,8 @@ GEMINI_API_KEY = "AQ.Ab8RN6LNTKOU155-SH-u0ouQyFO0lbpsaUJJgO_hBF2Hrxhrq"
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
-genai.configure(api_key=GEMINI_API_KEY)
-model = genai.GenerativeModel("gemini-1.5-flash")
+# নতুন genai ক্লায়েন্ট ইনিশিয়ালাইজেশন
+client = genai.Client(api_key=GEMINI_API_KEY)
 
 # নোটগুলো আপাতত মেমোরিতে থাকবে
 notes = {}
@@ -59,11 +58,8 @@ def main_keyboard():
 # =========================
 # WELCOME MESSAGE + BLUE LINKS
 # =========================
-
-
-@bot.message_handler(commands=['start', 'help'])
-def send_welcome(message):
-    welcome_text = (
+def welcome_text():
+    return (
         "👋 হ্যালো ট্রেডার! স্বাগতম 🖤📈\n\n"
         "🎁 /freevip — Free VIP-এর বিস্তারিত ও Tutorial Video দেখতে ক্লিক করুন।\n\n"
         "👑 /vipbenefits — VIP-এর সুবিধাগুলো জানতে ক্লিক করুন।\n\n"
@@ -71,29 +67,6 @@ def send_welcome(message):
         "📚 /notes — সেভ করা নোট দেখতে।\n\n"
         "💬 Support: @ghostsupportbd\n\n"
         "⚠️ Trading involves risk. লাভ নিশ্চিত নয়।"
-    )
-
-    keyboard = InlineKeyboardMarkup(row_width=2)
-    keyboard.add(
-        InlineKeyboardButton("🎁 Free VIP", callback_data="freevip"),
-        InlineKeyboardButton("👑 VIP Benefits", callback_data="vipbenefits")
-    )
-    keyboard.add(
-        InlineKeyboardButton("📝 Save Note", callback_data="save_note"),
-        InlineKeyboardButton("📚 My Notes", callback_data="notes")
-    )
-    keyboard.add(
-        InlineKeyboardButton(
-            "💬 Contact Support",
-            url="https://t.me/ghostsupportbd"
-        )
-    )
-
-    bot.send_message(
-        message.chat.id,
-        welcome_text,
-        reply_markup=keyboard,
-        disable_web_page_preview=True
     )
 
 
@@ -328,7 +301,11 @@ def ai_reply(message):
             "একজন দক্ষ সেক্রেটারির মতো বাংলায় উত্তর দাও।"
         )
 
-        response = model.generate_content(prompt)
+        # নতুন জেমিনি এসডিকে কল পদ্ধতি
+        response = client.models.generate_content(
+            model="gemini-2.5-flash",
+            contents=prompt
+        )
 
         if response and response.text:
             bot.reply_to(message, response.text)
@@ -351,3 +328,4 @@ def ai_reply(message):
 # =========================
 print("✅ Personal Secretary Bot চালু হচ্ছে...")
 bot.infinity_polling(skip_pending=True)
+
