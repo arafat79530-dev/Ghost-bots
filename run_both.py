@@ -21,7 +21,6 @@ BOT_FILES = [
     "ghosttutorial.py",
     "ghostai.py",
 ]
-
 processes = []
 log_files = []
 
