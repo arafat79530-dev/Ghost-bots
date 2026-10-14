@@ -13,7 +13,7 @@ BOT_TOKEN = ""
 BOT_USERNAME = "ghostfuturebot"
 
 # তোমার Gemini API Key
-GEMINI_API_KEY = "AQ.Ab8RN6LNTKOU155-SH-u0ouQyFO0lbpsaUJJgO_hBF2Hrxhrq"
+GEMINI_API_KEY = ""
 
 bot = telebot.TeleBot(BOT_TOKEN)
 
