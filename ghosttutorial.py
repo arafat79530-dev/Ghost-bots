@@ -7,7 +7,7 @@ from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 # =========================
 # BOT SETTINGS
 # =========================
-BOT_TOKEN = "8854135653:AAEd7HnsYve5zM4Ri5Cd5Ln0n199Xubj_a4"
+BOT_TOKEN = "8854135653:AAGWnLkAammhBPBxPmaryBO_-T4WGhfCOzY"
 
 # নিজের বটের username @ ছাড়া লিখবে
 BOT_USERNAME = "ghostfuturebot"
