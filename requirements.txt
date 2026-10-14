@@ -2,5 +2,6 @@ requests
 pytz
 python-telegram-bot
 pyTelegramBotAPI
+google-genai
 yfinance 
 Flask
