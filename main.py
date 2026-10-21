@@ -58,3 +58,26 @@ async def start_streaming():
 
 if __name__ == "__main__":
     asyncio.run(start_streaming())
+import os
+from flask import Flask
+import threading
+
+app_web = Flask(__name__)
+
+@app_web.route('/')
+def home():
+    return "Bot is running!"
+
+def run_flask():
+    port = int(os.environ.get("PORT", 10000))
+    app_web.run(host="0.0.0.0", port=port)
+
+# ফ্লাস্ক সার্ভারটি ব্যাকগ্রাউন্ড থ্রেডে রান করার ব্যবস্থা
+if __name__ == "__main__":
+    flask_thread = threading.Thread(target=run_flask)
+    flask_thread.daemon = True
+    flask_thread.start()
+    
+    # আপনার Pyrogram বা টেলিগ্রাম অ্যাপের মূল স্টার্ট/রান কোড এখানে থাকবে
+    # যেমন: app.run() বা আপনার বট ও pytgcalls স্টার্ট করার কোড
+
