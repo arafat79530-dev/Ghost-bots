@@ -17,22 +17,13 @@ def run_flask():
 
 # ২. আপনার টেলিগ্রাম ও স্ট্রিমিংয়ের মূল অ্যাসিনক্রোনাস লজিক
 async def main():
-// Environment Variables থেকে কনফিগারেশন লোড করা
+    # Environment Variables থেকে কনফিগারেশন লোড করা
     API_ID = os.getenv("API_ID")
     API_HASH = os.getenv("API_HASH")
-    BOT_TOKEN = os.getenv("BOT_TOKEN") # অথবা আপনার বটের টোকেন ভেরিয়েবল
+    BOT_TOKEN = os.getenv("BOT_TOKEN")
     
-    # Pyrogram ক্লায়েন্ট ইনিশিয়ালাইজেশন (যদি ইউজার সেশন বা বট টোকেন হয়)
-    # ntf/pytgcalls এর কোডগুলো এখানে ইনিশিয়ালাইজ করতে পারেন
-    
-    # উদাহরণস্বরূপ ক্লায়েন্ট স্টার্ট করা:
-    # app = Client("my_bot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
-    # async with app:
-    #     print("Bot is started!")
-    #     await idle()
-
     print("Telegram client / Py-tgcalls loop started...")
-    # বট বা স্ট্রিম চালু রাখার জন্য idle ব্যবহার করা যেতে পারে
+    # বট বা স্ট্রিম চালু রাখার জন্য idle ব্যবহার করা
     await idle()
 
 if __name__ == "__main__":
@@ -41,7 +32,7 @@ if __name__ == "__main__":
     flask_thread.daemon = True
     flask_thread.start()
     
-    # পাইথন ৩.১৪ বা লেটেস্ট ভার্সনে মেইন থ্রেডে সঠিক ইভেন্ট লুপ বজায় রেখে মেইন ফাংশন রান করা
+    # পাইথনের মেইন থ্রেডে সঠিক ইভেন্ট লুপ বজায় রেখে মেইন ফাংশন রান করা
     try:
         asyncio.run(main())
     except KeyboardInterrupt:
